@@ -1,37 +1,31 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
 
+    <TopToolbar></TopToolbar>
+    <!-- Sizes your content based upon application components -->
     <v-content>
-      <HelloWorld/>
+
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
     </v-content>
+    <BottomNav></BottomNav>
+
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
-export default Vue.extend({
-  name: 'App',
+import { Component, Vue } from "vue-property-decorator";
+import TopToolbar from "./components/TopToolbar.vue";
+import BottomNav from "./components/BottomNav.vue";
+@Component({
   components: {
-    HelloWorld,
-  },
-  data: () => ({
-    //
-  }),
-});
+    TopToolbar,
+    BottomNav
+  }
+})
+export default class extends Vue {}
 </script>
