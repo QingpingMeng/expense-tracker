@@ -1,8 +1,12 @@
 <template>
-  <v-bottom-navigation grow v-model="bottomNav" color="primary">
+  <v-bottom-navigation
+    grow
+    v-model="bottomNav"
+    color="primary"
+  >
     <v-btn value="home">
       <span>Home</span>
-       <v-icon medium>home</v-icon>
+      <v-icon medium>home</v-icon>
     </v-btn>
 
     <v-btn value="code">
@@ -20,9 +24,17 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  @Component
-  export default class BottomNav extends Vue {
-    private bottomNav: string = 'home';
-  }
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { db } from "../db";
+@Component({
+  firestore() {
+    return {
+      events: db.collection('events'),
+    };
+  },
+})
+export default class BottomNav extends Vue {
+  private bottomNav: string = 'home';
+  private events: any = [];
+}
 </script>
