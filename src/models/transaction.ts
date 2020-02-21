@@ -24,7 +24,7 @@ class Transaction {
         this.categoryId = transactionInput.categoryId;
         this.notes = transactionInput.notes;
         this.enabled = true;
-        this.id = transactionInput.id ?? shortid.generate();
+        this.id = transactionInput.id || shortid.generate();
     }
 }
 

@@ -8,12 +8,18 @@ Vue.use(Vuex);
 export interface IRootState{
   localTransactions: Array<Transaction>
   isOfflineMode: boolean
+  draftTransaction: ITransactionInput
 }
 
 const store: StoreOptions<IRootState> = {
   state: {
     localTransactions : new Array(),
     isOfflineMode: true,
+    draftTransaction: {
+      amount: 0,
+      timestamp: Date.now(),
+      categoryId: "shopping"
+    }
   },
   mutations: {
     addTransaction(state, transaction: Transaction){
@@ -24,6 +30,9 @@ const store: StoreOptions<IRootState> = {
     },
     updateTransaction(state, transaction: Transaction){
       state.localTransactions = [...state.localTransactions.filter(t => t.id != transaction.id), transaction];
+    },
+    updateDraftTransaction(state, transactionInput: ITransactionInput){
+      state.draftTransaction = {...transactionInput}
     }
   },
   actions: {

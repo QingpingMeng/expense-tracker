@@ -6,16 +6,23 @@
     <v-content>
 
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
+      <v-container fluid class="fill-height">
 
         <!-- If using vue-router -->
-        <router-view></router-view>
+        <router-view class="router-view"></router-view>
       </v-container>
     </v-content>
     <BottomNav></BottomNav>
 
   </v-app>
 </template>
+
+<style scoped>
+.router-view{
+  max-width: 768px;
+  height: 100%;
+}
+</style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
