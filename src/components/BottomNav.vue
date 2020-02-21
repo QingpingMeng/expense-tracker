@@ -25,16 +25,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { db } from "../db";
-@Component({
-  firestore() {
-    return {
-      events: db.collection('events'),
-    };
-  },
-})
+@Component
 export default class BottomNav extends Vue {
   private bottomNav: string = 'home';
-  private events: any = [];
 }
 </script>
