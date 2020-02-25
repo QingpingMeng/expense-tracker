@@ -2,18 +2,21 @@ import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
 import Transaction, { ITransactionInput } from './models/transaction';
 import db from './db';
+import Category from './models/category';
 
 Vue.use(Vuex);
 
 export interface IRootState{
   localTransactions: Array<Transaction>
   isOfflineMode: boolean
-  draftTransaction: ITransactionInput
+  draftTransaction: ITransactionInput,
+  localCategories: Array<Category>
 }
 
 const store: StoreOptions<IRootState> = {
   state: {
     localTransactions : new Array(),
+    localCategories: [new Category("cart", "1", "cart")],
     isOfflineMode: true,
     draftTransaction: {
       amount: 0,
