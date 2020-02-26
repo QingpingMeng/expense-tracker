@@ -1,11 +1,18 @@
+enum CategoryType{
+    Custom,
+    Native
+}
+
 class Category {
     name: string;
     icon: string;
     id!: string;
+    type: CategoryType;
 
-    constructor(name: string, icon: string){
+    constructor(name: string, icon: string, type: CategoryType = CategoryType.Native){
         this.name = name;
         this.icon = icon;
+        this.type = type;
     }
 }
 

@@ -14,6 +14,8 @@
     "decimal.js": "^10.2.0",
     "dexie": "^2.0.4",
     "firebase": "^6.3.5",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
     "register-service-worker": "^1.6.2",
     "shortid": "^2.2.15",
     "vue": "^2.6.10",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
+    "@types/lodash-es": "^4.17.3",
     "@types/shortid": "^0.0.29",
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-plugin-e2e-cypress": "^3.10.0",

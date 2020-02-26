@@ -28,11 +28,18 @@
 import { Component, Vue } from "vue-property-decorator";
 import TopToolbar from "./components/TopToolbar.vue";
 import BottomNav from "./components/BottomNav.vue";
+import db from './db';
 @Component({
   components: {
     TopToolbar,
     BottomNav
   }
 })
-export default class extends Vue {}
+export default class extends Vue {
+  public async mounted() {
+    await db.initCategory(); 
+    await this.$store.dispatch('loadCategoriesFromDb');
+    await this.$store.dispatch('loadTransactionFromDb');
+  }
+}
 </script>
