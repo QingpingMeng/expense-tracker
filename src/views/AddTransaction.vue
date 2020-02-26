@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="add-transaction-layout fill-height">
-    <v-container outline class="num-display">
-      <v-container class="expression-container elevation-4 fill-height display-1">
+    <v-container  class="num-display">
+      <v-container fluid class="num-display-container elevation-2 fill-height display-1">
         <p class="text-right fill-width">{{ this.draftTransaction.amount | toFixed}}</p>
       </v-container>
-    </v-container>
+    </v-container >
     <div class="options">
       <category-list />
     </div>
@@ -17,19 +17,20 @@
 <style scoped>
 .add-transaction-layout {
   display: grid;
+  grid-row-gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(2rem, 10%) minmax(3rem, 20%) 1fr;
+  grid-template-rows: minmax(2rem, auto) minmax(3rem, 1fr) 50%;
   grid-template-areas:
     "num-display"
     "options"
     "num-pad";
 }
 
-.expression-container {
+.num-display-container {
   border-radius: 3px;
 }
 
-.expression-container p {
+.num-display-container p {
   flex: 1;
   margin: 0;
 }

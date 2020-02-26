@@ -14,7 +14,7 @@ class ExpenseTrackerDatabase extends Dexie {
         super("ExpenseTrackerDatabase");
         this.version(1).stores({
             transactions: "&id,categoryId",
-            categories: "&id, name"
+            categories: "++id, name"
         });
         this.transactions = this.table("transactions");
         this.categories = this.table("categories");
