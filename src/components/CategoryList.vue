@@ -1,7 +1,13 @@
 <template>
   <v-container fluid class="category-list-layout fill-height">
     <div v-for="(item, index) in categories" :key="index">
-      <v-btn height="48" text class="category-block">
+      <v-btn
+        height="48"
+        v-bind:tile="selectedId == item.id"
+        v-bind:text="selectedId != item.id"
+        @click="$emit('onSelect', item.id)"
+        class="category-block"
+      >
         <div class="category-tile">
           <v-icon small>mdi-{{item.icon}}</v-icon>
           <div class="overline">{{ item.name }}</div>
@@ -14,16 +20,16 @@
 <style scoped>
 .category-list-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
 }
 
-.category-tile{
-    display: blcok;
+.category-tile {
+  display: blcok;
 }
 
-.category-block{
-    padding: 3px 0 0 0 !important;
-    width: 100%;
+.category-block {
+  padding: 3px 0 0 0 !important;
+  width: 100%;
 }
 </style>
 
@@ -35,5 +41,6 @@ import Category from "../models/category";
 @Component
 export default class CategoryList extends Vue {
   @State("localCategories") private categories!: Array<Category>;
+  @Prop(String) readonly selectedId!: string;
 }
 </script>

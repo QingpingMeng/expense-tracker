@@ -13,7 +13,6 @@
     "core-js": "^2.6.5",
     "decimal.js": "^10.2.0",
     "dexie": "^2.0.4",
-    "firebase": "^6.3.5",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "register-service-worker": "^1.6.2",
@@ -22,7 +21,6 @@
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.3",
-    "vuefire": "^2.1.2",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1",
     "vuex-class": "^0.3.2"

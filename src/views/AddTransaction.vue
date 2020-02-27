@@ -1,12 +1,20 @@
 <template>
   <v-container fluid class="add-transaction-layout fill-height">
-    <v-container  class="num-display">
+    <v-container fluid class="num-display">
       <v-container fluid class="num-display-container elevation-2 fill-height display-1">
-        <p class="text-right fill-width">{{ this.draftTransaction.amount | toFixed}}</p>
+        <p class="text-right fill-width">{{ draftTransaction.amount | toFixed}}</p>
       </v-container>
-    </v-container >
+    </v-container>
     <div class="options">
-      <category-list />
+      <v-container fluid>
+        <v-text-field prepend-icon="mdi-pencil" label="Add notes" v-model="notes" />
+        <date-picker />
+      </v-container>
+
+      <category-list
+        v-bind:selectedId="this.draftTransaction.categoryId.toString()"
+        @onSelect="updateCategoryId"
+      />
     </div>
     <div class="num-pad fill-height">
       <number-pad @onClear="onClear" @onBack="onBack" @onDigit="onDigit" />
@@ -19,7 +27,7 @@
   display: grid;
   grid-row-gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(2rem, auto) minmax(3rem, 1fr) 50%;
+  grid-template-rows: minmax(2rem, auto) minmax(3rem, 1fr);
   grid-template-areas:
     "num-display"
     "options"
@@ -54,12 +62,14 @@ import { State, Action, Mutation } from "vuex-class";
 import { ITransactionInput } from "../models/transaction";
 import NumberPad from "../components/NumberPad.vue";
 import CategoryList from "../components/CategoryList.vue";
+import DatePicker from "../components/DatePicker.vue";
 import { Decimal } from "decimal.js";
 
 @Component({
   components: {
     NumberPad,
-    CategoryList
+    CategoryList,
+    DatePicker,
   },
   filters: {
     toFixed: function(value: string) {
@@ -72,6 +82,17 @@ export default class AddTransaction extends Vue {
   @Mutation private updateDraftTransaction!: (
     transactionInput: ITransactionInput
   ) => void;
+
+  get notes() {
+    return this.draftTransaction.notes;
+  }
+
+  set notes(value) {
+    this.$store.commit("updateDraftTransaction", {
+      ...this.draftTransaction,
+      notes: value
+    });
+  }
 
   private updateAmount(amount: number) {
     this.$store.commit("updateDraftTransaction", {
@@ -99,6 +120,13 @@ export default class AddTransaction extends Vue {
       .floor()
       .dividedBy(100);
     this.updateAmount(currentValue.toNumber());
+  }
+
+  public updateCategoryId(id: string) {
+    this.$store.commit("updateDraftTransaction", {
+      ...this.draftTransaction,
+      categoryId: id
+    });
   }
 }
 </script>

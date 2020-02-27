@@ -26,7 +26,6 @@ class ExpenseTrackerDatabase extends Dexie {
 
         const diff = differenceWith(builtInCategories, builtInCategoriesFromDb, (x, y) => x.name !== y.name);
 
-        console.log("diff", diff)
         if (diff.length !== 0) {
             await this.categories.bulkAdd([...diff])
         }

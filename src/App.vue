@@ -7,7 +7,6 @@
 
       <!-- Provides the application the proper gutter -->
       <v-container fluid class="fill-height">
-
         <!-- If using vue-router -->
         <router-view class="router-view"></router-view>
       </v-container>

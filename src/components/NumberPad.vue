@@ -1,6 +1,6 @@
 <template>
     <v-container class="number-pad-layout fill-height">
-        <v-btn @click="$emit('onDigit', 1)" tile class="digit body-1">1</v-btn>
+        <v-btn height="60" @click="$emit('onDigit', 1)" tile class="digit body-1">1</v-btn>
         <v-btn @click="$emit('onDigit', 2)" tile class="digit body-1">2</v-btn>
         <v-btn @click="$emit('onDigit', 3)" tile class="digit body-1">3</v-btn>
         <v-btn @click="$emit('onDigit', 4)" tile class="digit body-1">4</v-btn>
@@ -32,10 +32,5 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class NumberPad extends Vue{
-    private amount = 0;
-
-    private onAmountChanged(digit: string){
-    }
-}
+export default class NumberPad extends Vue{}
 </script>

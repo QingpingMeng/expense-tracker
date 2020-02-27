@@ -21,7 +21,8 @@ const store: StoreOptions<IRootState> = {
     draftTransaction: {
       amount: 0,
       timestamp: Date.now(),
-      categoryId: "shopping"
+      categoryId: "",
+      notes: ""
     }
   },
   mutations: {

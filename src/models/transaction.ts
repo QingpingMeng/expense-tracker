@@ -6,7 +6,7 @@ export interface ITransactionInput{
     timestamp: number;
     categoryId: string;
     paymentType?: string;
-    notes?: string;
+    notes: string;
 }
 
 class Transaction {
@@ -22,7 +22,7 @@ class Transaction {
         this.amount = transactionInput.amount;
         this.timestamp = transactionInput.timestamp;
         this.categoryId = transactionInput.categoryId;
-        this.notes = transactionInput.notes;
+        this.notes = transactionInput.notes || "";
         this.enabled = true;
         this.id = transactionInput.id || shortid.generate();
     }
