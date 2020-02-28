@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="category-list-layout fill-height">
+  <div fluid class="category-list-layout fill-height">
     <div v-for="(item, index) in categories" :key="index">
       <v-btn
         height="48"
@@ -10,11 +10,11 @@
       >
         <div class="category-tile">
           <v-icon small>mdi-{{item.icon}}</v-icon>
-          <div class="overline">{{ item.name }}</div>
+          <div style="font-size:0.5rem">{{ item.name }}</div>
         </div>
       </v-btn>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <style scoped>

@@ -6,7 +6,7 @@
       </v-container>
     </v-container>
     <div class="options">
-      <v-container fluid>
+      <v-container fluid style="padding:0">
         <v-text-field prepend-icon="mdi-pencil" label="Add notes" v-model="notes" />
         <date-picker />
       </v-container>
@@ -32,6 +32,7 @@
     "num-display"
     "options"
     "num-pad";
+  padding: 0;
 }
 
 .num-display-container {
@@ -45,6 +46,7 @@
 
 .num-display {
   grid-area: num-display;
+  padding: 0;
 }
 
 .num-pads {
@@ -53,6 +55,7 @@
 
 .options {
   grid-area: options;
+  padding: 0;
 }
 </style>
 

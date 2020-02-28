@@ -29,7 +29,7 @@ export const builtInCategories = [
     new Category('Medical', 'medical-bag'),
     new Category('Grocery', 'basket'),
     new Category('Education', 'school'),
-    new Category('Furniture', 'table-furniture'),
+    new Category('Furniture', 'dresser'),
     new Category('Gift', 'gift'),
     new Category('Utility', 'trash-can'),
     new Category('Repair', 'wrench'),

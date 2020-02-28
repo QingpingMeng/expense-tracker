@@ -20,6 +20,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    padding: 0;
 }
 
 .number-pad-layout .operator,
