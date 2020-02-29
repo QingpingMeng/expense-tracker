@@ -1,7 +1,7 @@
 <template>
   <v-row fluid :style="{ height: categoryListHeight}"> 
     <v-col cols="12" style="padding:0">
-      <v-window v-model="curPage" show-arrows show-arrows-on-hover>
+      <v-window v-model="curPage" show-arrows :show-arrows-on-hover="true">
         <v-window-item class="category-list-layout" v-for="n in page" :key="`card-${n}`">
           <div v-for="(item, index) in currentPateCategory" :key="index">
             <v-btn
@@ -13,7 +13,7 @@
             >
               <div class="category-tile">
                 <v-icon small>mdi-{{item.icon}}</v-icon>
-                <div style="font-size:0.5rem">{{ item.name }}</div>
+                <div style="font-size:0.6rem">{{ item.name }}</div>
               </div>
             </v-btn>
           </div>
@@ -27,7 +27,6 @@
 .category-list-layout {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  height: 200px;
 }
 
 .category-tile {
@@ -52,7 +51,7 @@ export default class CategoryList extends Vue {
 
   private curPage = 0;
 
-  private categoryTileHeight = 48;
+  private categoryTileHeight = 64;
 
   get maxRowCount(): number{
     switch (this.$vuetify.breakpoint.name) {

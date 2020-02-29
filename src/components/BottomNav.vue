@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { State } from 'vuex-class';
 @Component
 export default class BottomNav extends Vue {
   private bottomNav: string = 'home';

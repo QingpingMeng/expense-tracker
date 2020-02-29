@@ -33,6 +33,7 @@
     "options"
     "num-pad";
   padding: 0;
+  margin-top: -56px;
 }
 
 .num-display-container {
@@ -85,6 +86,16 @@ export default class AddTransaction extends Vue {
   @Mutation private updateDraftTransaction!: (
     transactionInput: ITransactionInput
   ) => void;
+
+  public mounted(){
+    this.$store.commit('setBottomNav', false);
+    this.$store.commit('setShowTopBar', false);
+  }
+
+  public beforeDestroy(){
+    this.$store.commit('setBottomNav', true);
+    this.$store.commit('setShowTopBar', true);
+  }
 
   get notes() {
     return this.draftTransaction.notes;

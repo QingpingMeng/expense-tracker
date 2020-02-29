@@ -10,7 +10,9 @@ export interface IRootState {
   localTransactions: Array<Transaction>
   isOfflineMode: boolean
   draftTransaction: ITransactionInput,
-  localCategories: Array<Category>
+  localCategories: Array<Category>,
+  showBottomNav: boolean,
+  showTopBar: boolean,
 }
 
 const store: StoreOptions<IRootState> = {
@@ -23,7 +25,9 @@ const store: StoreOptions<IRootState> = {
       timestamp: Date.now(),
       categoryId: "",
       notes: ""
-    }
+    },
+    showBottomNav: true,
+    showTopBar: true,
   },
   mutations: {
     setTransactions(state, transactions:Transaction[]){
@@ -43,6 +47,12 @@ const store: StoreOptions<IRootState> = {
     },
     setCategories(state, categories: Category[]){
       state.localCategories = categories;
+    },
+    setBottomNav(state, value: boolean){
+      state.showBottomNav = value;
+    },
+    setShowTopBar(state, value: boolean){
+      state.showTopBar = value;
     }
   },
   actions: {
