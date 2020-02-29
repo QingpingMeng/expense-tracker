@@ -1,22 +1,26 @@
 <template>
-  <v-window v-model="curPage">
-    <v-window-item class="category-list-layout" v-for="n in page" :key="`card-${n}`">
-      <div v-for="(item, index) in currentPateCategory" :key="index">
-        <v-btn
-          height="48"
-          v-bind:tile="selectedId == item.id"
-          v-bind:text="selectedId != item.id"
-          @click="$emit('onSelect', item.id)"
-          class="category-block"
-        >
-          <div class="category-tile">
-            <v-icon small>mdi-{{item.icon}}</v-icon>
-            <div style="font-size:0.5rem">{{ item.name }}</div>
+  <v-row fluid :style="{ height: categoryListHeight}"> 
+    <v-col cols="12" style="padding:0">
+      <v-window v-model="curPage" show-arrows show-arrows-on-hover>
+        <v-window-item class="category-list-layout" v-for="n in page" :key="`card-${n}`">
+          <div v-for="(item, index) in currentPateCategory" :key="index">
+            <v-btn
+              :height="categoryTileHeight"
+              v-bind:tile="selectedId == item.id"
+              v-bind:text="selectedId != item.id"
+              @click="$emit('onSelect', item.id)"
+              class="category-block"
+            >
+              <div class="category-tile">
+                <v-icon small>mdi-{{item.icon}}</v-icon>
+                <div style="font-size:0.5rem">{{ item.name }}</div>
+              </div>
+            </v-btn>
           </div>
-        </v-btn>
-      </div>
-    </v-window-item>
-  </v-window>
+        </v-window-item>
+      </v-window>
+    </v-col>
+  </v-row>
 </template>
 
 <style scoped>
@@ -47,15 +51,61 @@ export default class CategoryList extends Vue {
   @Prop(String) readonly selectedId!: string;
 
   private curPage = 0;
-  private pageSize = 12;
+
+  private categoryTileHeight = 48;
+
+  get maxRowCount(): number{
+    switch (this.$vuetify.breakpoint.name) {
+      case "xs":
+        return 3;
+      case "sm":
+        return 3;
+      case "md":
+        return 4;
+      case "lg":
+        return 6;
+      case "xl":
+        return 6;
+      default:
+        return 6;
+    }
+  }
+
+  get maxColumnCount(): number{
+      switch (this.$vuetify.breakpoint.name) {
+      case "xs":
+        return 4;
+      case "sm":
+        return 4;
+      case "md":
+        return 4;
+      case "lg":
+        return 8;
+      case "xl":
+        return 8;
+      default:
+        return 8;
+    }
+  }
+
+  get pageSize(): number {
+     return this.maxRowCount * this.maxColumnCount;
+  }
+
+  get categoryListHeight():number{
+      return this.maxRowCount * this.categoryTileHeight;
+  }
 
   get page() {
     if (this.categories === null || this.categories === undefined) return 0;
     return Math.ceil(this.categories.length / this.pageSize);
   }
 
-  get currentPateCategory(){
-      return this.categories.slice(this.curPage*this.pageSize, (this.curPage+1) * this.pageSize)
+  get currentPateCategory() {
+    return this.categories.slice(
+      this.curPage * this.pageSize,
+      (this.curPage + 1) * this.pageSize
+    );
   }
 }
 </script>
