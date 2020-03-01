@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TopToolbar v-show="showTopBar"></TopToolbar>
+    <TopToolbar v-if="showTopBar"></TopToolbar>
     <!-- Sizes your content based upon application components -->
     <v-content fluid>
 
@@ -10,7 +10,7 @@
         <router-view class="router-view"></router-view>
       </v-container>
     </v-content>
-    <BottomNav v-show="showBottomNav"></BottomNav>
+    <BottomNav v-if="showBottomNav"></BottomNav>
   </v-app>
 </template>
 

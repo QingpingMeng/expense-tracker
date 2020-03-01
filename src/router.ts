@@ -8,6 +8,6 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {path: '/transactions/add', component: AddTransaction}
+    { path: '/transactions/add', component: AddTransaction },
   ],
 });

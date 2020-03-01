@@ -1,7 +1,17 @@
 <template>
   <v-container fluid class="add-transaction-layout fill-height">
+    <v-toolbar class="nav-buttons" absolute color="primary" dense>
+      <v-btn color="white" style="margin-left:-12px" @click="onCancel" text>
+        <v-icon>mdi-arrow-left</v-icon>Cancel
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn style="margin-right:-12px" @click="onSave" color="white" text>
+        <v-icon>mdi-check</v-icon>Save
+      </v-btn>
+    </v-toolbar>
     <v-container fluid class="num-display">
       <v-container fluid class="num-display-container elevation-2 fill-height display-1">
+        <p class="currencySymbol">$</p>
         <p class="text-right fill-width">{{ draftTransaction.amount | toFixed}}</p>
       </v-container>
     </v-container>
@@ -32,12 +42,26 @@
     "num-display"
     "options"
     "num-pad";
+  padding-top: 48px;
+}
+
+.nav-buttons {
+  width: 100%;
+  left: 0;
+}
+
+.button-group {
+  grid-area: nav-buttons;
   padding: 0;
-  margin-top: -56px;
 }
 
 .num-display-container {
   border-radius: 3px;
+  display: flex;
+}
+
+.currencySymbol{
+  flex: 0;
 }
 
 .num-display-container p {
@@ -73,7 +97,7 @@ import { Decimal } from "decimal.js";
   components: {
     NumberPad,
     CategoryList,
-    DatePicker,
+    DatePicker
   },
   filters: {
     toFixed: function(value: string) {
@@ -87,14 +111,23 @@ export default class AddTransaction extends Vue {
     transactionInput: ITransactionInput
   ) => void;
 
-  public mounted(){
-    this.$store.commit('setBottomNav', false);
-    this.$store.commit('setShowTopBar', false);
+  public mounted() {
+    this.$store.commit("setBottomNav", false);
+    this.$store.commit("setShowTopBar", false);
   }
 
-  public beforeDestroy(){
-    this.$store.commit('setBottomNav', true);
-    this.$store.commit('setShowTopBar', true);
+  public beforeDestroy() {
+    this.$store.commit("setBottomNav", true);
+    this.$store.commit("setShowTopBar", true);
+  }
+
+  public onCancel(){
+    this.$router.push('/');
+  }
+
+  public async onSave(){
+    await this.$store.dispatch('addTransactionAsync', this.draftTransaction)
+    this.$router.push('/');
   }
 
   get notes() {

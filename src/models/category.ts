@@ -33,7 +33,7 @@ export const builtInCategories = [
     new Category('Gift', 'gift'),
     new Category('Utility', 'trash-can'),
     new Category('Repair', 'wrench'),
-    new Category('Entertainment', 'music')
+    new Category('Amusement', 'music')
 ]
 
 export default Category;

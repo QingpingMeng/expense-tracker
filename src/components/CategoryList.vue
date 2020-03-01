@@ -1,14 +1,20 @@
 <template>
-  <v-row fluid :style="{ height: categoryListHeight}"> 
+  <v-row fluid :style="{ height: categoryListHeight}">
     <v-col cols="12" style="padding:0">
-      <v-window v-model="curPage" show-arrows :show-arrows-on-hover="true">
+      <v-window
+        v-model="curPage"
+        :show-arrows="showArrowsOnHover"
+        :show-arrows-on-hover="showArrowsOnHover"
+        :style="windowInlineStyle"
+      >
         <v-window-item class="category-list-layout" v-for="n in page" :key="`card-${n}`">
           <div v-for="(item, index) in currentPateCategory" :key="index">
             <v-btn
               :height="categoryTileHeight"
-              v-bind:tile="selectedId == item.id"
-              v-bind:text="selectedId != item.id"
+              v-bind:tile="isSelected(item)"
+              v-bind:text="!isSelected(item)"
               @click="$emit('onSelect', item.id)"
+              :color="isSelected(item)? 'primary': 'default'"
               class="category-block"
             >
               <div class="category-tile">
@@ -19,6 +25,17 @@
           </div>
         </v-window-item>
       </v-window>
+      <v-card-actions class="justify-space-between">
+        <v-spacer />
+        <v-item-group v-model="curPage" class="text-center" mandatory>
+          <v-item v-for="n in page" :key="`btn-${n}`" v-slot:default="{ active, toggle }">
+            <v-btn :input-value="active" icon @click="toggle">
+              <v-icon small>mdi-record</v-icon>
+            </v-btn>
+          </v-item>
+        </v-item-group>
+        <v-spacer />
+      </v-card-actions>
     </v-col>
   </v-row>
 </template>
@@ -53,7 +70,15 @@ export default class CategoryList extends Vue {
 
   private categoryTileHeight = 64;
 
-  get maxRowCount(): number{
+  private windowInlineStyle = {
+    height: `${this.categoryListHeight}px`
+  };
+
+  public isSelected(item: Category): boolean {
+    return this.selectedId == item.id;
+  }
+
+  get maxRowCount(): number {
     switch (this.$vuetify.breakpoint.name) {
       case "xs":
         return 3;
@@ -70,33 +95,24 @@ export default class CategoryList extends Vue {
     }
   }
 
-  get maxColumnCount(): number{
-      switch (this.$vuetify.breakpoint.name) {
-      case "xs":
-        return 4;
-      case "sm":
-        return 4;
-      case "md":
-        return 4;
-      case "lg":
-        return 8;
-      case "xl":
-        return 8;
-      default:
-        return 8;
-    }
+  get showArrowsOnHover(): boolean {
+    return this.$vuetify.breakpoint.mdAndUp;
+  }
+
+  get maxColumnCount(): number {
+    return Math.floor(this.$vuetify.breakpoint.width / 80);
   }
 
   get pageSize(): number {
-     return this.maxRowCount * this.maxColumnCount;
+    return this.maxRowCount * this.maxColumnCount;
   }
 
-  get categoryListHeight():number{
-      return this.maxRowCount * this.categoryTileHeight;
+  get categoryListHeight(): number {
+    return this.maxRowCount * this.categoryTileHeight;
   }
 
   get page() {
-    if (this.categories === null || this.categories === undefined) return 0;
+    if (!this.categories) return 0;
     return Math.ceil(this.categories.length / this.pageSize);
   }
 
