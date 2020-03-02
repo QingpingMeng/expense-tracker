@@ -17,7 +17,7 @@
     </v-container>
     <div class="options">
       <v-container fluid style="padding:0">
-        <v-text-field prepend-icon="mdi-pencil" label="Add notes" v-model="notes" />
+        <v-text-field prepend-icon="mdi-pencil" dense label="Add notes" v-model="notes" />
         <date-picker />
       </v-container>
 
@@ -92,7 +92,6 @@ import NumberPad from "../components/NumberPad.vue";
 import CategoryList from "../components/CategoryList.vue";
 import DatePicker from "../components/DatePicker.vue";
 import { Decimal } from "decimal.js";
-
 @Component({
   components: {
     NumberPad,

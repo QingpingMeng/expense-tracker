@@ -3,6 +3,8 @@ import Vuex, { StoreOptions } from 'vuex';
 import Transaction, { ITransactionInput } from './models/transaction';
 import db from './db';
 import Category from './models/category';
+import dayjs from 'dayjs'
+import { uniq } from 'lodash-es';
 
 Vue.use(Vuex);
 
@@ -28,6 +30,15 @@ const store: StoreOptions<IRootState> = {
     },
     showBottomNav: true,
     showTopBar: true,
+  },
+  getters:{
+    transactionDates: state => {
+      console.log(state.localTransactions.map(t => t));
+      return uniq(state.localTransactions.map(t => {
+        console.log(t.dateString)
+       return t.dateString
+      }))
+    }
   },
   mutations: {
     setTransactions(state, transactions:Transaction[]){
@@ -63,7 +74,8 @@ const store: StoreOptions<IRootState> = {
     },
     async loadTransactionFromDb(context){
       context.commit('setTransactions', []);
-      const transactionsFromDb = await db.transactions.toArray()
+      let transactionsFromDb = await db.transactions.orderBy('timestamp').toArray()
+      transactionsFromDb = transactionsFromDb.map(t => Transaction.fromJson(t));
       context.commit('setTransactions', [...transactionsFromDb]);
     },
     async loadCategoriesFromDb(context){

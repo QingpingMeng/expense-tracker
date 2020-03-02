@@ -12,6 +12,7 @@
         v-model="date"
         label="Date"
         prepend-icon="event"
+        dense
         readonly
         v-on="on"
       ></v-text-field>
@@ -24,6 +25,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { State } from "vuex-class";
 import { ITransactionInput } from "@/models/transaction";
+import dayjs from 'dayjs';
 
 @Component
 export default class DatePicker extends Vue {
@@ -32,13 +34,12 @@ export default class DatePicker extends Vue {
   private menu = false;
 
   get date() {
-    return new Date(this.draftTransaction.timestamp)
-      .toISOString()
-      .substring(0, 10);
+    return dayjs(this.draftTransaction.timestamp)
+      .format('YYYY-MM-DD')
   }
 
   set date(value) {
-    let date = new Date(value);
+    let date = dayjs(value);
     this.$store.commit("updateDraftTransaction", {
       ...this.draftTransaction,
       timestamp: date.valueOf()
