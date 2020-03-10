@@ -1,39 +1,37 @@
 <template>
-  <v-container fluid>
-    <v-list subheader>
-      <div v-for="date in transactionDates" :key="date">
-        <v-subheader>{{ date }}</v-subheader>
-        <v-list-item v-for="t in transactionsInDate(date)" :key="t.id">
-             <v-list-item-avatar>
-      <v-icon v-text="food"></v-icon>
-    </v-list-item-avatar>
+  <v-list subheader>
+    <div v-for="date in transactionDates" :key="date">
+      <v-subheader>{{ date }}</v-subheader>
+      <template v-for="t in transactionsInDate(date)">
+        <swipe-list-item :key="t.id">
+          <template v-slot:left>
+            <div style="background-color:red;width:100%">Left</div>
+          </template>
+          <template v-slot:center>
+            <transaction-list-item :transaction="t" :key="t.id"></transaction-list-item>
+          </template>
 
-    <v-list-item-content>
-      <v-list-item-title v-text="t.notes"></v-list-item-title>
-      <v-list-item-subtitle v-text="t.dateString"></v-list-item-subtitle>
-    </v-list-item-content>
-
-    <v-list-item-action>
-      <v-btn icon>
-        <v-icon color="grey lighten-1">mdi-information</v-icon>
-      </v-btn>
-    </v-list-item-action>
-        </v-list-item>
-      </div>
-    </v-list>
-  </v-container>
+          <template v-slot:right>
+            <div style="background-color:blue;width:100%">right</div>
+          </template>
+        </swipe-list-item>
+      </template>
+    </div>
+  </v-list>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Getter } from "vuex-class";
 import Transaction from "../models/transaction";
-import TransactionListItem from '../components/TransactionListItem.vue'
+import TransactionListItem from "../components/TransactionListItem.vue";
+import SwipeListItem from "../components/SwipeList/SwipeListItem.vue";
 import dayjs from "dayjs";
 
 @Component({
   components: {
-      TransactionListItem
+    TransactionListItem,
+    SwipeListItem
   }
 })
 export default class TransactionList extends Vue {

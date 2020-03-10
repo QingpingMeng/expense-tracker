@@ -91,6 +91,7 @@ import { ITransactionInput } from "../models/transaction";
 import NumberPad from "../components/NumberPad.vue";
 import CategoryList from "../components/CategoryList.vue";
 import DatePicker from "../components/DatePicker.vue";
+import toFixedAmount from "../filters/toFixedAmount";
 import { Decimal } from "decimal.js";
 @Component({
   components: {
@@ -99,9 +100,7 @@ import { Decimal } from "decimal.js";
     DatePicker
   },
   filters: {
-    toFixed: function(value: string) {
-      return parseFloat(value).toFixed(2);
-    }
+    toFixed: toFixedAmount
   }
 })
 export default class AddTransaction extends Vue {

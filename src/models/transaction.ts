@@ -50,7 +50,6 @@ class Transaction implements ITransaction {
     }
 
     public get dateString(): string {
-        console.log("gett");
         return dayjs(this.timestamp).format('YYYY-MM-DD');
     }
 }
