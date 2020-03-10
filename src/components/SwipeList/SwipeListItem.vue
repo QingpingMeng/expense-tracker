@@ -26,23 +26,14 @@
   width: 100%;
   position: relative;
   left: -33%;
+  display: grid;
+  grid-template-columns: 33% 100% 33%;
+  align-items: stretch;
 }
 
-.swipe-list-item div {
+/* .swipe-list-item div {
   display: inline-block;
-}
-
-.center {
-  width: 100%;
-}
-
-.left {
-  width: 33%;
-}
-
-.right {
-  width: 33%;
-}
+} */
 </style>
 
 <script lang="ts">

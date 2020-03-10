@@ -5,14 +5,20 @@
       <template v-for="t in transactionsInDate(date)">
         <swipe-list-item :key="t.id">
           <template v-slot:left>
-            <div style="background-color:red;width:100%">Left</div>
+            <v-btn class="ma-2" tile x-large color="primary">
+              <v-icon>mdi-file-document-edit</v-icon>
+            </v-btn>
           </template>
           <template v-slot:center>
             <transaction-list-item :transaction="t" :key="t.id"></transaction-list-item>
           </template>
 
           <template v-slot:right>
-            <div style="background-color:blue;width:100%">right</div>
+            <div>
+             <v-btn class="ma-2" tile x-large color="error">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+            </div>
           </template>
         </swipe-list-item>
       </template>

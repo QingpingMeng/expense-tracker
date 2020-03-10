@@ -3,7 +3,7 @@
     <v-row>
       <div class="transaction-list-view-item-layout">
           <div>
-            <v-icon>mdi-{{ categoryInfo.icon }}</v-icon>
+            <v-icon medium color="primary">mdi-{{ categoryInfo.icon }}</v-icon>
           </div>
           <div class="transation-detail">
             <div class="body1">{{ transaction.notes || categoryInfo.name }}</div>
@@ -21,7 +21,7 @@
 .transaction-list-view-item-layout{
   display: grid;
   width: 100%;
-  grid-template-columns: minmax(40px, auto) 1fr minmax(40px, auto);
+  grid-template-columns: minmax(50px, auto) 1fr minmax(40px, auto);
 }
 
 .transaction-list-view-item-layout > div{
