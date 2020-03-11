@@ -1,6 +1,8 @@
 <template>
   <v-bottom-navigation
     grow
+    fixed
+    height="76"
     v-model="bottomNav"
     color="primary"
   >

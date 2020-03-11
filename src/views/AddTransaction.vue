@@ -125,6 +125,7 @@ export default class AddTransaction extends Vue {
 
   public async onSave(){
     await this.$store.dispatch('addTransactionAsync', this.draftTransaction)
+    this.$store.commit('resetDraftTransaction');
     this.$router.push('/');
   }
 

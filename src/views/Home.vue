@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-row>
-    <v-col cols="12">
+    <v-col cols="12" style="padding-top:0">
       <transaction-list></transaction-list>
     </v-col>
   </v-row>

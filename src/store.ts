@@ -4,7 +4,7 @@ import Transaction, { ITransactionInput } from './models/transaction';
 import db from './db';
 import Category from './models/category';
 import dayjs from 'dayjs'
-import { uniq } from 'lodash-es';
+import { uniq, orderBy } from 'lodash-es';
 
 Vue.use(Vuex);
 
@@ -31,18 +31,19 @@ const store: StoreOptions<IRootState> = {
     showBottomNav: true,
     showTopBar: true,
   },
-  getters:{
+  getters: {
     transactionDates: state => {
-      console.log(state.localTransactions.map(t => t));
-      return uniq(state.localTransactions.map(t => {
-        console.log(t.dateString)
-       return t.dateString
-      }))
+      return orderBy(uniq(state.localTransactions.map(t => {
+        return t.dateString
+      })), String, "desc")
+    },
+    orderedTransactions: state => {
+      return orderBy(state.localTransactions, ['timestamp'], ["desc"])
     }
   },
   mutations: {
-    setTransactions(state, transactions:Transaction[]){
-        state.localTransactions = transactions;
+    setTransactions(state, transactions: Transaction[]) {
+      state.localTransactions = transactions;
     },
     addTransaction(state, transaction: Transaction) {
       state.localTransactions = [...state.localTransactions, transaction];
@@ -56,13 +57,21 @@ const store: StoreOptions<IRootState> = {
     updateDraftTransaction(state, transactionInput: ITransactionInput) {
       state.draftTransaction = { ...transactionInput }
     },
-    setCategories(state, categories: Category[]){
+    resetDraftTransaction(state) {
+      state.draftTransaction = {
+        amount: 0,
+        timestamp: Date.now(),
+        categoryId: "",
+        notes: ""
+      }
+    },
+    setCategories(state, categories: Category[]) {
       state.localCategories = categories;
     },
-    setBottomNav(state, value: boolean){
+    setBottomNav(state, value: boolean) {
       state.showBottomNav = value;
     },
-    setShowTopBar(state, value: boolean){
+    setShowTopBar(state, value: boolean) {
       state.showTopBar = value;
     }
   },
@@ -72,13 +81,13 @@ const store: StoreOptions<IRootState> = {
       await db.transactions.add(transaction);
       context.commit('addTransaction', transaction);
     },
-    async loadTransactionFromDb(context){
+    async loadTransactionFromDb(context) {
       context.commit('setTransactions', []);
-      let transactionsFromDb = await db.transactions.orderBy('timestamp').toArray()
+      let transactionsFromDb = await db.transactions.toArray()
       transactionsFromDb = transactionsFromDb.map(t => Transaction.fromJson(t));
       context.commit('setTransactions', [...transactionsFromDb]);
     },
-    async loadCategoriesFromDb(context){
+    async loadCategoriesFromDb(context) {
       context.commit('setCategories', []);
       const categoriesFromDb = await db.categories.toArray();
       context.commit('setCategories', [...categoriesFromDb]);
