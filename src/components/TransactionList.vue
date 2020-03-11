@@ -15,16 +15,23 @@
 
           <template v-slot:right>
             <div>
-             <v-btn @click="deleteTransaction(t.id)" class="ma-2" tile x-large color="error">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+              <v-btn @click="deleteTransaction(t.id)" class="ma-2" tile x-large color="error">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
             </div>
           </template>
         </swipe-actions>
       </template>
     </div>
     <div v-show="localTransactions.length <= 0">
-      No
+      <v-card class="mx-auto" elevation="0">
+        <v-card-text class="text-center">
+          <div>No transactions.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn to="/transactions/add" class="mx-auto" color="primary" raised>Get start</v-btn>
+        </v-card-actions>
+      </v-card>
     </div>
   </v-list>
 </template>
@@ -44,15 +51,15 @@ import dayjs from "dayjs";
   }
 })
 export default class TransactionList extends Vue {
-  @Getter('orderedTransactions') private localTransactions!: Transaction[];
+  @Getter("orderedTransactions") private localTransactions!: Transaction[];
   @Getter transactionDates!: string[];
 
   public transactionsInDate(date: string) {
     return this.localTransactions.filter(t => t.dateString === date);
   }
 
-  public async deleteTransaction(id: string){
-    await this.$store.dispatch('removeTransactionAsync', id);
+  public async deleteTransaction(id: string) {
+    await this.$store.dispatch("removeTransactionAsync", id);
   }
 }
 </script>

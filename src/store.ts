@@ -61,7 +61,7 @@ const store: StoreOptions<IRootState> = {
       state.draftTransaction = {
         amount: 0,
         timestamp: Date.now(),
-        categoryId: "",
+        categoryId: state.localCategories[0].id || "",
         notes: ""
       }
     },
@@ -91,6 +91,9 @@ const store: StoreOptions<IRootState> = {
       context.commit('setCategories', []);
       const categoriesFromDb = await db.categories.toArray();
       context.commit('setCategories', [...categoriesFromDb]);
+      if(!context.state.draftTransaction.categoryId){
+        context.state.draftTransaction.categoryId = categoriesFromDb[0].id || ""
+      }
     },
     async removeTransactionAsync(context, id) {
       await db.transactions.delete(id);
