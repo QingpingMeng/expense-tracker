@@ -5,7 +5,7 @@
       <template v-for="t in transactionsInDate(date)">
         <swipe-actions :key="t.id">
           <template v-slot:left>
-            <v-btn class="ma-2" tile x-large color="primary">
+            <v-btn @click="editTransaction(t.id)" class="ma-2" tile x-large color="primary">
               <v-icon>mdi-file-document-edit</v-icon>
             </v-btn>
           </template>
@@ -60,6 +60,10 @@ export default class TransactionList extends Vue {
 
   public async deleteTransaction(id: string) {
     await this.$store.dispatch("removeTransactionAsync", id);
+  }
+
+  public editTransaction(id: string){
+    this.$router.push(`/transactions/${id}`)
   }
 }
 </script>

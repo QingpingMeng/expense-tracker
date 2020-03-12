@@ -60,7 +60,7 @@
   display: flex;
 }
 
-.currencySymbol{
+.currencySymbol {
   flex: 0;
 }
 
@@ -109,9 +109,18 @@ export default class AddTransaction extends Vue {
     transactionInput: ITransactionInput
   ) => void;
 
-  public mounted() {
+  private isCreate = true;
+
+  public async mounted() {
     this.$store.commit("setBottomNav", false);
     this.$store.commit("setShowTopBar", false);
+
+    if (this.$route.path !== "/transactions/add") {
+      this.isCreate = false;
+
+      const { id } = this.$route.params;
+      await this.$store.dispatch("loadTransactionIntoDraft", id);
+    }
   }
 
   public beforeDestroy() {
@@ -119,14 +128,20 @@ export default class AddTransaction extends Vue {
     this.$store.commit("setShowTopBar", true);
   }
 
-  public onCancel(){
-    this.$router.push('/');
+  public onCancel() {
+    this.$router.push("/");
   }
 
-  public async onSave(){
-    await this.$store.dispatch('addTransactionAsync', this.draftTransaction)
-    this.$store.commit('resetDraftTransaction');
-    this.$router.push('/');
+  public async onSave() {
+
+    let actionName = "addTransactionAsync";
+    if(!this.isCreate){
+      actionName = "updateTransactionAsync";
+    }
+
+    await this.$store.dispatch(actionName, this.draftTransaction);
+    this.$store.commit("resetDraftTransaction");
+    this.$router.push("/");
   }
 
   get notes() {

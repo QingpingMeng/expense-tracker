@@ -102,7 +102,25 @@ const store: StoreOptions<IRootState> = {
     async updateTransactionAsync(context, transactionInput: ITransactionInput) {
       let transaction = new Transaction(transactionInput);
       await db.transactions.update(transaction.id, transaction);
-    }
+      context.commit('updateTransaction', transaction);
+    },
+    async loadTransactionIntoDraft(context, id){
+      let transaction = await db.transactions.where("id").equalsIgnoreCase(id).first();
+      
+      if(!transaction){
+        throw Error('Transaction not found');
+      }
+
+      transaction = Transaction.fromJson(transaction);
+      context.commit('updateDraftTransaction', {
+        id: transaction.id,
+        amount: transaction.amount,
+        timestamp: transaction.timestamp,
+        categoryId: transaction.categoryId,
+        notes : transaction.notes,
+        paymentType: transaction.paymentType
+      })
+    },
   },
 }
 
