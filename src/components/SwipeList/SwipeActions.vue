@@ -1,6 +1,6 @@
 <template>
   <div class="swipe-list-item">
-    <div class="swipe-list-viewport" :style="[swipeStyle]">
+    <div class="swipe-list-viewport" :style="[pinnedStyle, panningStyle]">
       <div class="left fill-height" ref="left">
         <slot name="left"></slot>
       </div>
@@ -21,7 +21,7 @@
   white-space: nowrap;
 }
 
-.swipe-list-viewport{
+.swipe-list-viewport {
   z-index: 1000;
   width: 100%;
   position: relative;
@@ -46,30 +46,35 @@ import Hammer from "hammerjs";
 export default class SwipeListItem extends Vue {
   private position = 0;
   private swipeActionWidth = 50;
-
-  public swipeLeft() {
-    this.position = Math.max(this.position - 1, -1);
-  }
-
-  public swipeRight() {
-    this.position = Math.min(this.position + 1, 1);
-  }
+  private isPanning = false;
+  private panDeltaX = 0;
+  private panThreshold = 40;
 
   public mounted() {
     let center = this.$refs.center as HTMLElement;
     let hammer = new Hammer(center);
-    hammer.on("swipe", this.swipeHandler);
-
-    // this.swipeActionWidth = this.$refs.left
+    hammer.on("panstart", this.onPanStart);
+    hammer.on("panmove", this.onPanMove);
+    hammer.on("panend", this.onPanStop);
+    hammer.on("pancancel", this.onPanStop);
   }
 
-  public swipeHandler(e: HammerInput) {
-    // if (Math.abs(e.deltaX) < 40) {
-    //   return;
-    // }
+  public onPanStart(e: HammerInput) {
+    this.isPanning = true;
+  }
+
+  public onPanMove(e: HammerInput) {
+    this.panDeltaX = e.deltaX;
+  }
+
+  public onPanStop(e: HammerInput) {
+    this.isPanning = false;
+
+    if(Math.abs(e.deltaX) < this.panThreshold){
+      return;
+    }
 
     const direction = e.offsetDirection;
-
     if (direction === Hammer.DIRECTION_LEFT) {
       this.position = Math.max(this.position - 1, -1);
     }
@@ -79,11 +84,21 @@ export default class SwipeListItem extends Vue {
     }
   }
 
-  get swipeStyle() {
-    return {
-      transform: `translateX(${this.position * 33}%)`,
-      transition: "0.5s"
-    };
+  get pinnedStyle() {
+    if (!this.isPanning) {
+      return {
+        transform: `translateX(${this.position * 33}%)`,
+        transition: "0.5s"
+      };
+    }
+  }
+
+  get panningStyle() {
+    if (this.isPanning) {
+      return {
+        transform: `translateX(${this.panDeltaX}px)`
+      };
+    } 
   }
 }
 </script>
