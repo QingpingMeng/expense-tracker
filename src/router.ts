@@ -11,6 +11,7 @@ export default new Router({
   routes: [
     { path: '/home', component: Home, alias: "/" },
     { path: '/transactions/add', component: AddTransaction },
-    { path: '/transactions/:id', component: AddTransaction }
+    { path: '/transactions/:id', component: AddTransaction },
+    { path: '/', component: Home}
   ],
 });
