@@ -6,12 +6,12 @@
     v-model="bottomNav"
     color="primary"
   >
-    <v-btn value="home">
+    <v-btn to="/home" value="home">
       <span>Home</span>
       <v-icon medium>home</v-icon>
     </v-btn>
 
-    <v-btn value="code">
+    <v-btn to="/chart" value="code">
       <span>Chart</span>
       <v-icon>pie_chart</v-icon>
     </v-btn>
