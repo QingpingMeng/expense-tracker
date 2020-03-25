@@ -2,7 +2,12 @@
   <v-container>
     <v-row>
       <v-col cols="12" style="padding-top:0">
-       <expense-trend></expense-trend>
+        <expense-trend></expense-trend>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" style="padding-top:0">
+        <expense-category></expense-category>
       </v-col>
     </v-row>
   </v-container>
@@ -11,12 +16,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { State, Getter } from "vuex-class";
-import ExpenseTrend from '../components/Charts/ExpenseTrend.vue'
+import ExpenseTrend from "../components/Charts/ExpenseTrend.vue";
+import ExpenseCategory from "../components/Charts/ExpenseCategory.vue";
 @Component({
   components: {
-    ExpenseTrend
+    ExpenseTrend,
+    ExpenseCategory
   }
 })
-export default class ViewChart extends Vue {
-}
+export default class ViewChart extends Vue {}
 </script>
