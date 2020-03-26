@@ -96,7 +96,7 @@ export default class SwipeListItem extends Vue {
   get panningStyle() {
     if (this.isPanning) {
       return {
-        transform: `translateX(${this.panDeltaX}px)`
+        transform: `translateX(${this.position * 33}%) translateX(${this.panDeltaX}px)`
       };
     } 
   }

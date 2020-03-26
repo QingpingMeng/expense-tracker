@@ -4,21 +4,22 @@
     fixed
     height="76"
     v-model="bottomNav"
+    style="z-index:1000;"
     color="primary"
   >
-    <v-btn value="home">
+    <v-btn to="/home" value="/home">
       <span>Home</span>
       <v-icon medium>home</v-icon>
     </v-btn>
 
-    <v-btn value="code">
+    <v-btn to="/chart" value="/chart">
       <span>Chart</span>
       <v-icon>pie_chart</v-icon>
     </v-btn>
 
-    <v-btn value="favorites">
-      <span>Sync</span>
-      <v-icon>sync</v-icon>
+    <v-btn value="settings">
+      <span>Settings</span>
+      <v-icon>settings</v-icon>
     </v-btn>
 
   </v-bottom-navigation>
@@ -31,5 +32,9 @@ import { State } from 'vuex-class';
 @Component
 export default class BottomNav extends Vue {
   private bottomNav: string = 'home';
+
+  public mounted(){
+    this.bottomNav = this.$route.path;
+  }
 }
 </script>
