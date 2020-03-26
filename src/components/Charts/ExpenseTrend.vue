@@ -16,8 +16,16 @@ export default class ExpenseTrend extends Vue {
   private lineChart!: Chart;
   private dayRange = this.getDaysRange();
 
+  @Watch("localTransactions")
+  onTransactionChanged(val: string, oldVal: string) {
+    this.lineChart.data.datasets![0].data = this.getExpenseData();
+    this.lineChart.data.labels = this.dayRange.map(d => d.format("MM/DD"));
+    this.lineChart.update();
+  }
+
   public mounted() {
     const ctx = this.$refs.canvas as HTMLCanvasElement;
+    const mdAndUp = this.$vuetify.breakpoint.mdAndUp;
     this.lineChart = new Chart(ctx, {
       type: "line",
       data: {
@@ -26,11 +34,13 @@ export default class ExpenseTrend extends Vue {
           {
             label: "Daily Expense",
             data: this.getExpenseData(),
-            borderWidth: 2
+            backgroundColor: ["#ffffff", "#ffffff", "#ffffff", "#ffffff"],
+            borderWidth: 3
           }
         ]
       },
       options: {
+        aspectRatio: mdAndUp ? 2 : 1.5,
         scales: {
           yAxes: [
             {
@@ -43,6 +53,11 @@ export default class ExpenseTrend extends Vue {
         }
       }
     });
+  }
+
+  public updated() {
+    this.lineChart.data.datasets![0].data = this.getExpenseData();
+    this.lineChart.update();
   }
 
   private getDaysRange() {
