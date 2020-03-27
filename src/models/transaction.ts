@@ -10,7 +10,7 @@ export interface ITransactionInput {
     notes: string;
 }
 
-export interface ITransaction{
+export interface ITransaction {
     amount: number;
     timestamp: number;
     categoryId: string;
@@ -21,36 +21,36 @@ export interface ITransaction{
 }
 
 class Transaction implements ITransaction {
-    amount: number;
-    timestamp: number;
-    categoryId: string;
-    enabled: boolean;
-    notes?: string;
-    paymentType?: string;
-    id: string;
 
-    static fromJson(data: ITransaction){
-        const dummyIntput: ITransactionInput= {
+    public get dateString(): string {
+        return dayjs(this.timestamp).format('YYYY-MM-DD');
+    }
+
+    public static fromJson(data: ITransaction) {
+        const dummyIntput: ITransactionInput = {
             amount: 0,
             timestamp: Date.now(),
-            categoryId: "1",
-            notes: ""
-        }
+            categoryId: '1',
+            notes: '',
+        };
         const instance = new this(dummyIntput);
         return Object.assign(instance, data);
     }
+    public amount: number;
+    public timestamp: number;
+    public categoryId: string;
+    public enabled: boolean;
+    public notes?: string;
+    public paymentType?: string;
+    public id: string;
 
     constructor(transactionInput: ITransactionInput) {
         this.amount = transactionInput.amount;
         this.timestamp = transactionInput.timestamp;
         this.categoryId = transactionInput.categoryId;
-        this.notes = transactionInput.notes || "";
+        this.notes = transactionInput.notes || '';
         this.enabled = true;
         this.id = transactionInput.id || shortid.generate();
-    }
-
-    public get dateString(): string {
-        return dayjs(this.timestamp).format('YYYY-MM-DD');
     }
 }
 

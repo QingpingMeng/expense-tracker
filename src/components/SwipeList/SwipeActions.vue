@@ -37,11 +37,11 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { State, Getter } from "vuex-class";
-import Hammer from "hammerjs";
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { State, Getter } from 'vuex-class';
+import Hammer from 'hammerjs';
 @Component({
-  components: {}
+  components: {},
 })
 export default class SwipeListItem extends Vue {
   private position = 0;
@@ -51,12 +51,12 @@ export default class SwipeListItem extends Vue {
   private panThreshold = 40;
 
   public mounted() {
-    let center = this.$refs.center as HTMLElement;
-    let hammer = new Hammer(center);
-    hammer.on("panstart", this.onPanStart);
-    hammer.on("panmove", this.onPanMove);
-    hammer.on("panend", this.onPanStop);
-    hammer.on("pancancel", this.onPanStop);
+    const center = this.$refs.center as HTMLElement;
+    const hammer = new Hammer(center);
+    hammer.on('panstart', this.onPanStart);
+    hammer.on('panmove', this.onPanMove);
+    hammer.on('panend', this.onPanStop);
+    hammer.on('pancancel', this.onPanStop);
   }
 
   public onPanStart(e: HammerInput) {
@@ -70,7 +70,7 @@ export default class SwipeListItem extends Vue {
   public onPanStop(e: HammerInput) {
     this.isPanning = false;
 
-    if(Math.abs(e.deltaX) < this.panThreshold){
+    if (Math.abs(e.deltaX) < this.panThreshold) {
       return;
     }
 
@@ -88,7 +88,7 @@ export default class SwipeListItem extends Vue {
     if (!this.isPanning) {
       return {
         transform: `translateX(${this.position * 33}%)`,
-        transition: "0.5s"
+        transition: '0.5s',
       };
     }
   }
@@ -96,9 +96,9 @@ export default class SwipeListItem extends Vue {
   get panningStyle() {
     if (this.isPanning) {
       return {
-        transform: `translateX(${this.position * 33}%) translateX(${this.panDeltaX}px)`
+        transform: `translateX(${this.position * 33}%) translateX(${this.panDeltaX}px)`,
       };
-    } 
+    }
   }
 }
 </script>

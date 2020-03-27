@@ -18,15 +18,15 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State, Getter } from "vuex-class";
-import Transaction from "../models/transaction";
-import TransactionList from "../components/TransactionList.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import { State, Getter } from 'vuex-class';
+import Transaction from '../models/transaction';
+import TransactionList from '../components/TransactionList.vue';
 
 @Component({
   components: {
-    TransactionList
-  }
+    TransactionList,
+  },
 })
 export default class Home extends Vue {}
 </script>

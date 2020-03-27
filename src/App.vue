@@ -22,23 +22,23 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import TopToolbar from "./components/TopToolbar.vue";
-import BottomNav from "./components/BottomNav.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import TopToolbar from './components/TopToolbar.vue';
+import BottomNav from './components/BottomNav.vue';
 import db from './db';
 import { State } from 'vuex-class';
 @Component({
   components: {
     TopToolbar,
-    BottomNav
-  }
+    BottomNav,
+  },
 })
 export default class extends Vue {
-  @State private showBottomNav!:boolean;
-  @State private showTopBar!:boolean;
-  
+  @State private showBottomNav!: boolean;
+  @State private showTopBar!: boolean;
+
   public async mounted() {
-    await db.initCategory(); 
+    await db.initCategory();
     await this.$store.dispatch('loadCategoriesFromDb');
     await this.$store.dispatch('loadTransactionFromDb');
   }

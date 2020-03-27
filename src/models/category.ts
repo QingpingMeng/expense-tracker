@@ -1,15 +1,15 @@
-enum CategoryType{
+enum CategoryType {
     Custom,
-    Native
+    Native,
 }
 
 class Category {
-    name: string;
-    icon: string;
-    id!: string;
-    type: CategoryType;
+    public name: string;
+    public icon: string;
+    public id!: string;
+    public type: CategoryType;
 
-    constructor(name: string, icon: string, type: CategoryType = CategoryType.Native){
+    constructor(name: string, icon: string, type: CategoryType = CategoryType.Native) {
         this.name = name;
         this.icon = icon;
         this.type = type;
@@ -17,8 +17,8 @@ class Category {
 }
 
 export const builtInCategories = [
-    new Category('Food', 'food'), 
-    new Category("Shopping","cart"), 
+    new Category('Food', 'food'),
+    new Category('Shopping', 'cart'),
     new Category('Beverage', 'coffee'),
     new Category('Gas', 'gas-station'),
     new Category('Transport', 'train-car'),
@@ -33,7 +33,7 @@ export const builtInCategories = [
     new Category('Gift', 'gift'),
     new Category('Utility', 'trash-can'),
     new Category('Repair', 'wrench'),
-    new Category('Amusement', 'music')
-]
+    new Category('Amusement', 'music'),
+];
 
 export default Category;

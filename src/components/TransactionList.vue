@@ -52,18 +52,18 @@ import dayjs from "dayjs";
 })
 export default class TransactionList extends Vue {
   @Getter("orderedTransactions") private localTransactions!: Transaction[];
-  @Getter transactionDates!: string[];
+  @Getter public transactionDates!: string[];
 
   public transactionsInDate(date: string) {
-    return this.localTransactions.filter(t => t.dateString === date);
+    return this.localTransactions.filter((t) => t.dateString === date);
   }
 
   public async deleteTransaction(id: string) {
-    await this.$store.dispatch("removeTransactionAsync", id);
+    await this.$store.dispatch('removeTransactionAsync', id);
   }
 
-  public editTransaction(id: string){
-    this.$router.push(`/transactions/${id}`)
+  public editTransaction(id: string) {
+    this.$router.push(`/transactions/${id}`);
   }
 }
 </script>

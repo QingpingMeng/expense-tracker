@@ -85,81 +85,74 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State, Action, Mutation } from "vuex-class";
-import { ITransactionInput } from "../models/transaction";
-import NumberPad from "../components/NumberPad.vue";
-import CategoryList from "../components/CategoryList.vue";
-import DatePicker from "../components/DatePicker.vue";
-import toFixedAmount from "../filters/toFixedAmount";
-import { Decimal } from "decimal.js";
+import { Component, Vue } from 'vue-property-decorator';
+import { State, Action, Mutation } from 'vuex-class';
+import { ITransactionInput } from '../models/transaction';
+import NumberPad from '../components/NumberPad.vue';
+import CategoryList from '../components/CategoryList.vue';
+import DatePicker from '../components/DatePicker.vue';
+import toFixedAmount from '../filters/toFixedAmount';
+import { Decimal } from 'decimal.js';
 @Component({
   components: {
     NumberPad,
     CategoryList,
-    DatePicker
+    DatePicker,
   },
   filters: {
-    toFixed: toFixedAmount
-  }
+    toFixed: toFixedAmount,
+  },
 })
 export default class AddTransaction extends Vue {
-  @State private draftTransaction!: ITransactionInput;
-  @Mutation private updateDraftTransaction!: (
-    transactionInput: ITransactionInput
-  ) => void;
-
-  private isCreate = true;
-
-  public async mounted() {
-    this.$store.commit("setBottomNav", false);
-    this.$store.commit("setShowTopBar", false);
-
-    if (this.$route.path !== "/transactions/add") {
-      this.isCreate = false;
-
-      const { id } = this.$route.params;
-      await this.$store.dispatch("loadTransactionIntoDraft", id);
-    }
-  }
-
-  public beforeDestroy() {
-    this.$store.commit("setBottomNav", true);
-    this.$store.commit("setShowTopBar", true);
-  }
-
-  public onCancel() {
-    this.$router.push("/");
-  }
-
-  public async onSave() {
-
-    let actionName = "addTransactionAsync";
-    if(!this.isCreate){
-      actionName = "updateTransactionAsync";
-    }
-
-    await this.$store.dispatch(actionName, this.draftTransaction);
-    this.$store.commit("resetDraftTransaction");
-    this.$router.push("/");
-  }
 
   get notes() {
     return this.draftTransaction.notes;
   }
 
   set notes(value) {
-    this.$store.commit("updateDraftTransaction", {
+    this.$store.commit('updateDraftTransaction', {
       ...this.draftTransaction,
-      notes: value
+      notes: value,
     });
   }
+  @State private draftTransaction!: ITransactionInput;
+  @Mutation private updateDraftTransaction!: (
+    transactionInput: ITransactionInput,
+  ) => void;
 
-  private updateAmount(amount: number) {
-    this.$store.commit("updateDraftTransaction", {
-      ...this.draftTransaction,
-      amount
-    });
+  private isCreate = true;
+
+  public async mounted() {
+    this.$store.commit('setBottomNav', false);
+    this.$store.commit('setShowTopBar', false);
+
+    if (this.$route.path !== '/transactions/add') {
+      this.isCreate = false;
+
+      const { id } = this.$route.params;
+      await this.$store.dispatch('loadTransactionIntoDraft', id);
+    }
+  }
+
+  public beforeDestroy() {
+    this.$store.commit('setBottomNav', true);
+    this.$store.commit('setShowTopBar', true);
+  }
+
+  public onCancel() {
+    this.$router.push('/');
+  }
+
+  public async onSave() {
+
+    let actionName = 'addTransactionAsync';
+    if (!this.isCreate) {
+      actionName = 'updateTransactionAsync';
+    }
+
+    await this.$store.dispatch(actionName, this.draftTransaction);
+    this.$store.commit('resetDraftTransaction');
+    this.$router.push('/');
   }
 
   public onClear() {
@@ -184,9 +177,16 @@ export default class AddTransaction extends Vue {
   }
 
   public updateCategoryId(id: string) {
-    this.$store.commit("updateDraftTransaction", {
+    this.$store.commit('updateDraftTransaction', {
       ...this.draftTransaction,
-      categoryId: id
+      categoryId: id,
+    });
+  }
+
+  private updateAmount(amount: number) {
+    this.$store.commit('updateDraftTransaction', {
+      ...this.draftTransaction,
+      amount,
     });
   }
 }

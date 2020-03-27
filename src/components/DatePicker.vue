@@ -22,9 +22,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State } from "vuex-class";
-import { ITransactionInput } from "@/models/transaction";
+import { Component, Vue } from 'vue-property-decorator';
+import { State } from 'vuex-class';
+import { ITransactionInput } from '@/models/transaction';
 import dayjs from 'dayjs';
 
 @Component
@@ -35,14 +35,14 @@ export default class DatePicker extends Vue {
 
   get date() {
     return dayjs(this.draftTransaction.timestamp)
-      .format('YYYY-MM-DD')
+      .format('YYYY-MM-DD');
   }
 
   set date(value) {
-    let date = dayjs(value);
-    this.$store.commit("updateDraftTransaction", {
+    const date = dayjs(value);
+    this.$store.commit('updateDraftTransaction', {
       ...this.draftTransaction,
-      timestamp: date.valueOf()
+      timestamp: date.valueOf(),
     });
   }
 }

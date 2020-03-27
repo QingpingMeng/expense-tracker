@@ -1,7 +1,7 @@
 import Dexie from 'dexie';
 import Transaction from './models/transaction';
 import Category, { builtInCategories } from './models/category';
-import { differenceWith } from 'lodash-es'
+import { differenceWith } from 'lodash-es';
 
 //
 // Declare DB
@@ -12,13 +12,13 @@ class ExpenseTrackerDatabase extends Dexie {
     public categories: Dexie.Table<Category, string>;
 
     public constructor() {
-        super("ExpenseTrackerDatabase");
+        super('ExpenseTrackerDatabase');
         this.version(1).stores({
-            transactions: "&id, categoryId, timestamp, amount, notes",
-            categories: "++id, &name, type"
+            transactions: '&id, categoryId, timestamp, amount, notes',
+            categories: '++id, &name, type',
         });
-        this.transactions = this.table("transactions");
-        this.categories = this.table("categories");
+        this.transactions = this.table('transactions');
+        this.categories = this.table('categories');
     }
 
     public async initCategory() {
@@ -27,7 +27,7 @@ class ExpenseTrackerDatabase extends Dexie {
         const diff = differenceWith(builtInCategories, builtInCategoriesFromDb, (x, y) => x.name !== y.name);
 
         if (diff.length !== 0) {
-            await this.categories.bulkAdd([...diff])
+            await this.categories.bulkAdd([...diff]);
         }
     }
 }

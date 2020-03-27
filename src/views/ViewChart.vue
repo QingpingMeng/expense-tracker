@@ -30,15 +30,15 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { State, Getter } from "vuex-class";
-import ExpenseTrend from "../components/Charts/ExpenseTrend.vue";
-import ExpenseCategory from "../components/Charts/ExpenseCategory.vue";
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { State, Getter } from 'vuex-class';
+import ExpenseTrend from '../components/Charts/ExpenseTrend.vue';
+import ExpenseCategory from '../components/Charts/ExpenseCategory.vue';
 @Component({
   components: {
     ExpenseTrend,
-    ExpenseCategory
-  }
+    ExpenseCategory,
+  },
 })
 export default class ViewChart extends Vue {}
 </script>

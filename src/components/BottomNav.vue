@@ -27,13 +27,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 @Component
 export default class BottomNav extends Vue {
   private bottomNav: string = 'home';
 
-  public mounted(){
+  public mounted() {
     this.bottomNav = this.$route.path;
   }
 }

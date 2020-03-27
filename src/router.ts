@@ -10,10 +10,10 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '/home', component: Home, alias: "/" },
+    { path: '/home', component: Home, alias: '/' },
     { path: '/transactions/add', component: AddTransaction },
     { path: '/transactions/:id', component: AddTransaction },
     { path: '/chart', component: ViewChart},
-    { path: '/', component: Home}
+    { path: '/', component: Home},
   ],
 });

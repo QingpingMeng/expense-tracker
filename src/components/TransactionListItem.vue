@@ -35,26 +35,26 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { State, Getter } from "vuex-class";
-import Transaction from "../models/transaction";
-import toFixedAmount from "../filters/toFixedAmount";
-import dayjs from "dayjs";
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { State, Getter } from 'vuex-class';
+import Transaction from '../models/transaction';
+import toFixedAmount from '../filters/toFixedAmount';
+import dayjs from 'dayjs';
 import Category from '../models/category';
 @Component({
   components: {},
   filters: {
-    toFixed: toFixedAmount
-  }
+    toFixed: toFixedAmount,
+  },
 })
 export default class extends Vue {
   @Prop(Transaction) private transaction!: Transaction;
   @State private localCategories!: Category[];
 
-  private categoryInfo: Category = new Category("loading", "refresh");
+  private categoryInfo: Category = new Category('loading', 'refresh');
 
-  public mounted(){
-    this.categoryInfo = this.localCategories.find(c => c.id === this.transaction.categoryId)!;
+  public mounted() {
+    this.categoryInfo = this.localCategories.find((c) => c.id === this.transaction.categoryId)!;
   }
 }
 </script>
